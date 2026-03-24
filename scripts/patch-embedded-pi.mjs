@@ -27,53 +27,7 @@ const settingsPath = resolve(appRoot, ".feynman", "settings.json");
 const workspaceDir = resolve(appRoot, ".feynman", "npm");
 const workspacePackageJsonPath = resolve(workspaceDir, "package.json");
 
-function ensurePackageWorkspace() {
-	if (!existsSync(settingsPath)) {
-		return;
-	}
-
-	const settings = JSON.parse(readFileSync(settingsPath, "utf8"));
-	const packageSpecs = Array.isArray(settings.packages)
-		? settings.packages
-			.filter((value) => typeof value === "string" && value.startsWith("npm:"))
-			.map((value) => value.slice(4))
-		: [];
-
-	if (packageSpecs.length === 0) {
-		return;
-	}
-
-	mkdirSync(workspaceDir, { recursive: true });
-
-	writeFileSync(
-		workspacePackageJsonPath,
-		JSON.stringify(
-			{
-				name: "pi-extensions",
-				private: true,
-				dependencies: Object.fromEntries(packageSpecs.map((spec) => [spec, "latest"])),
-			},
-			null,
-			2,
-		) + "\n",
-		"utf8",
-	);
-
-	const npmExec = process.env.npm_execpath;
-	const install = npmExec
-		? spawnSync(process.execPath, [npmExec, "install", "--prefix", workspaceDir, ...packageSpecs], {
-				stdio: "inherit",
-			})
-		: spawnSync("npm", ["install", "--prefix", workspaceDir, ...packageSpecs], {
-				stdio: "inherit",
-			});
-
-	if (install.status !== 0) {
-		console.warn("[feynman] warning: failed to preinstall default Pi packages into .feynman/npm");
-	}
-}
-
-ensurePackageWorkspace();
+// Pi handles package installation from .feynman/settings.json at runtime — no manual install needed
 
 if (existsSync(packageJsonPath)) {
 	const pkg = JSON.parse(readFileSync(packageJsonPath, "utf8"));
