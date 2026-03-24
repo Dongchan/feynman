@@ -6,6 +6,7 @@ import { promptChoice, promptText } from "../setup/prompts.js";
 import { printInfo, printSection, printSuccess, printWarning } from "../ui/terminal.js";
 import {
 	buildModelStatusSnapshotFromRecords,
+	chooseRecommendedModel,
 	getAvailableModelRecords,
 	getSupportedModelRecords,
 	type ModelStatusSnapshot,
@@ -109,7 +110,7 @@ export function printModelList(settingsPath: string, authPath: string): void {
 	}
 }
 
-export async function loginModelProvider(authPath: string, providerId?: string): Promise<void> {
+export async function loginModelProvider(authPath: string, providerId?: string, settingsPath?: string): Promise<void> {
 	const provider = providerId ? resolveOAuthProvider(authPath, providerId) : await selectOAuthProvider(authPath, "login");
 	if (!provider) {
 		if (providerId) {
@@ -143,6 +144,21 @@ export async function loginModelProvider(authPath: string, providerId?: string):
 	});
 
 	printSuccess(`Model provider login complete: ${provider.id}`);
+
+	if (settingsPath) {
+		const currentSpec = getCurrentModelSpec(settingsPath);
+		const available = getAvailableModelRecords(authPath);
+		const currentValid = currentSpec
+			? available.some((m) => `${m.provider}/${m.id}` === currentSpec)
+			: false;
+
+		if ((!currentSpec || !currentValid) && available.length > 0) {
+			const recommended = chooseRecommendedModel(authPath);
+			if (recommended) {
+				setDefaultModelSpec(settingsPath, authPath, recommended.spec);
+			}
+		}
+	}
 }
 
 export async function logoutModelProvider(authPath: string, providerId?: string): Promise<void> {

@@ -7,13 +7,13 @@ interface Props {
 const { class: className = '', size = 'hero' } = Astro.props;
 
 const sizeClasses = size === 'nav'
-  ? 'text-lg'
-  : 'text-4xl sm:text-5xl md:text-6xl';
+  ? 'text-2xl'
+  : 'text-6xl sm:text-7xl md:text-8xl';
 ---
 
 <span
   class:list={[
-    "font-['Silkscreen'] text-accent font-bold tracking-tight inline-block",
+    "font-['VT323'] text-accent inline-block tracking-tighter",
     sizeClasses,
     className,
   ]}

@@ -1,3 +1,5 @@
+import { FEYNMAN_ASCII_LOGO } from "../../logo.mjs";
+
 const RESET = "\x1b[0m";
 const BOLD = "\x1b[1m";
 const DIM = "\x1b[2m";
@@ -38,6 +40,17 @@ export function printError(text: string): void {
 export function printSection(title: string): void {
 	console.log("");
 	console.log(paint(`◆ ${title}`, TEAL, BOLD));
+}
+
+export function printAsciiHeader(subtitleLines: string[] = []): void {
+	console.log("");
+	for (const line of FEYNMAN_ASCII_LOGO) {
+		console.log(paint(`  ${line}`, TEAL, BOLD));
+	}
+	for (const line of subtitleLines) {
+		console.log(paint(`  ${line}`, ASH));
+	}
+	console.log("");
 }
 
 export function printPanel(title: string, subtitleLines: string[] = []): void {

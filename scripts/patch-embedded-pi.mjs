@@ -2,7 +2,7 @@ import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { FEYNMAN_ASCII_LOGO_HTML } from "../logo.mjs";
+import { FEYNMAN_LOGO_HTML } from "../logo.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const appRoot = resolve(here, "..");
@@ -365,7 +365,7 @@ if (oauthPagePath && existsSync(oauthPagePath)) {
 	let source = readFileSync(oauthPagePath, "utf8");
 	const piLogo = 'const LOGO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" aria-hidden="true"><path fill="#fff" fill-rule="evenodd" d="M165.29 165.29 H517.36 V400 H400 V517.36 H282.65 V634.72 H165.29 Z M282.65 282.65 V400 H400 V282.65 Z"/><path fill="#fff" d="M517.36 400 H634.72 V634.72 H517.36 Z"/></svg>`;';
 	if (source.includes(piLogo)) {
-		const feynmanLogo = `const LOGO_SVG = \`${FEYNMAN_ASCII_LOGO_HTML}\`;`;
+		const feynmanLogo = `const LOGO_SVG = \`${FEYNMAN_LOGO_HTML}\`;`;
 		source = source.replace(piLogo, feynmanLogo);
 		writeFileSync(oauthPagePath, source, "utf8");
 	}
@@ -377,17 +377,17 @@ const alphaHubAuthPath = findPackageRoot("@companion-ai/alpha-hub")
 
 if (alphaHubAuthPath && existsSync(alphaHubAuthPath)) {
 	let source = readFileSync(alphaHubAuthPath, "utf8");
-	const callbackStyle = `style="font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;background:#050a08;color:#f0f5f2"`;
-	const logoHtml = FEYNMAN_ASCII_LOGO_HTML.replace('color:#10b981', 'color:#34d399');
-	const successPage = `<html><body ${callbackStyle}>${logoHtml}<h2 style="color:#34d399;margin-top:24px">Logged in</h2><p style="color:#8aaa9a">You can close this tab.</p></body></html>`;
-	const errorPage = `<html><body ${callbackStyle}>${logoHtml}<h2 style="color:#ef4444;margin-top:24px">Login failed</h2><p style="color:#8aaa9a">You can close this tab.</p></body></html>`;
-	const oldSuccess = `'<html><body><h2>Logged in to Alpha Hub</h2><p>You can close this tab.</p></body></html>'`;
-	const oldError = `'<html><body><h2>Login failed</h2><p>You can close this tab.</p></body></html>'`;
+	const oldSuccess = "'<html><body><h2>Logged in to Alpha Hub</h2><p>You can close this tab.</p></body></html>'";
+	const oldError = "'<html><body><h2>Login failed</h2><p>You can close this tab.</p></body></html>'";
+	const bodyAttr = `style="font-family:system-ui,sans-serif;text-align:center;padding-top:20vh;background:#050a08;color:#f0f5f2"`;
+	const logo = `<h1 style="font-family:monospace;font-size:48px;color:#34d399;margin:0">feynman</h1>`;
+	const newSuccess = `'<html><body ${bodyAttr}>${logo}<h2 style="color:#34d399;margin-top:16px">Logged in</h2><p style="color:#8aaa9a">You can close this tab.</p></body></html>'`;
+	const newError = `'<html><body ${bodyAttr}>${logo}<h2 style="color:#ef4444;margin-top:16px">Login failed</h2><p style="color:#8aaa9a">You can close this tab.</p></body></html>'`;
 	if (source.includes(oldSuccess)) {
-		source = source.replace(oldSuccess, `'${successPage}'`);
+		source = source.replace(oldSuccess, newSuccess);
 	}
 	if (source.includes(oldError)) {
-		source = source.replace(oldError, `'${errorPage}'`);
+		source = source.replace(oldError, newError);
 	}
 	writeFileSync(alphaHubAuthPath, source, "utf8");
 }

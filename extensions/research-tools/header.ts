@@ -230,8 +230,10 @@ export function installFeynmanHeader(
 
 				push("");
 				if (cardW >= 70) {
+					const maxLogoW = Math.max(...FEYNMAN_AGENT_LOGO.map((l) => l.length));
+					const logoOffset = " ".repeat(Math.max(0, Math.floor((cardW - maxLogoW) / 2)));
 					for (const logoLine of FEYNMAN_AGENT_LOGO) {
-						push(theme.fg("accent", theme.bold(centerText(truncateVisible(logoLine, cardW), cardW))));
+						push(theme.fg("accent", theme.bold(`${logoOffset}${truncateVisible(logoLine, cardW)}`)));
 					}
 					push("");
 				}

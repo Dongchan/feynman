@@ -28,7 +28,7 @@ import { printSearchStatus } from "./search/commands.js";
 import { runDoctor, runStatus } from "./setup/doctor.js";
 import { setupPreviewDependencies } from "./setup/preview.js";
 import { runSetup } from "./setup/setup.js";
-import { printInfo, printPanel, printSection } from "./ui/terminal.js";
+import { printAsciiHeader, printInfo, printPanel, printSection } from "./ui/terminal.js";
 import {
 	cliCommandSections,
 	formatCliWorkflowUsage,
@@ -50,7 +50,7 @@ function printHelp(appRoot: string): void {
 		(command) => command.section === "Research Workflows" && command.topLevelCli,
 	);
 
-	printPanel("Feynman", [
+	printAsciiHeader([
 		"Research-first agent shell built on Pi.",
 		"Use `feynman setup` first if this is a new machine.",
 	]);
@@ -123,7 +123,7 @@ async function handleModelCommand(subcommand: string | undefined, args: string[]
 	}
 
 	if (subcommand === "login") {
-		await loginModelProvider(feynmanAuthPath, args[0]);
+		await loginModelProvider(feynmanAuthPath, args[0], feynmanSettingsPath);
 		return;
 	}
 
