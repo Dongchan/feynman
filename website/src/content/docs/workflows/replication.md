@@ -19,6 +19,7 @@ Before running code, Feynman asks you to choose an execution environment:
 
 - **Local** — run in the current working directory
 - **Virtual environment** — create an isolated venv/conda env first
+- **Docker** — run experiment code inside an isolated Docker container
 - **Cloud** — delegate to a remote Agent Computer machine
 - **Plan only** — produce the replication plan without executing
 

@@ -13,6 +13,7 @@ Design a replication plan for: $@
 3. **Environment** — Before running anything, ask the user where to execute:
    - **Local** — run in the current working directory
    - **Virtual environment** — create an isolated venv/conda env first
+   - **Docker** — run experiment code inside an isolated Docker container
    - **Cloud** — delegate to a remote Agent Computer machine via `/delegate`
    - **Plan only** — produce the replication plan without executing
 4. **Execute** — If the user chose an execution environment, implement and run the replication steps there. Save notes, scripts, and results to disk in a reproducible layout.

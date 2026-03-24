@@ -58,7 +58,8 @@ Four bundled research agents, dispatched automatically or via subagent commands.
 ## Tools
 
 - **[AlphaXiv](https://www.alphaxiv.org/)** — paper search, Q&A, code reading, persistent annotations
-- **[Agent Computer](https://agentcomputer.ai)** — secure cloud execution for experiments, replications, and long-running research
+- **Docker** — isolated container execution for safe experiments on your machine
+- **[Agent Computer](https://agentcomputer.ai)** — secure cloud execution for long-running research and GPU workloads
 - **Web search** — Gemini or Perplexity, zero-config default via signed-in Chromium
 - **Session search** — indexed recall across prior research sessions
 - **Preview** — browser and PDF export of generated artifacts
@@ -82,9 +83,9 @@ feynman search status               # web search config
 
 ## How it works
 
-Built on [Pi](https://github.com/mariozechner/pi-coding-agent), [alphaXiv](https://www.alphaxiv.org/), and [Agent Computer](https://agentcomputer.ai). Pi provides the agent runtime. alphaXiv powers paper search, Q&A, code reading, and annotations. Agent Computer provides secure cloud machines for running experiments and replications.
+Built on [Pi](https://github.com/mariozechner/pi-coding-agent) for the agent runtime, [alphaXiv](https://www.alphaxiv.org/) for paper search and analysis, [Docker](https://www.docker.com/) for isolated local execution, and [Agent Computer](https://agentcomputer.ai) for secure cloud workloads
 
-Every output is source-grounded. Claims link to papers, docs, or repos with direct URLs.
+Every output is source-grounded — claims link to papers, docs, or repos with direct URLs
 
 ---
 
@@ -96,5 +97,3 @@ cd feynman && npm install && npm run start
 ```
 
 [Docs](https://feynman.companion.ai/docs) · [MIT License](LICENSE)
-
-Built on [Pi](https://github.com/mariozechner/pi-coding-agent), [alphaXiv](https://www.alphaxiv.org/), and [Agent Computer](https://agentcomputer.ai).
