@@ -10,7 +10,7 @@ const workspaceNodeModulesDir = resolve(workspaceDir, "node_modules");
 const manifestPath = resolve(workspaceDir, ".runtime-manifest.json");
 const workspacePackageJsonPath = resolve(workspaceDir, "package.json");
 const workspaceArchivePath = resolve(feynmanDir, "runtime-workspace.tgz");
-const PRUNE_VERSION = 1;
+const PRUNE_VERSION = 3;
 
 function readPackageSpecs() {
 	const settings = JSON.parse(readFileSync(settingsPath, "utf8"));

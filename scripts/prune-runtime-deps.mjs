@@ -4,25 +4,12 @@ import { basename, join, resolve } from "node:path";
 const root = resolve(process.argv[2] ?? ".");
 const nodeModulesDir = resolve(root, "node_modules");
 
-const STRIP_DIR_NAMES = new Set([
-	".github",
-	"__mocks__",
-	"__tests__",
-	"coverage",
-	"doc",
-	"docs",
-	"example",
-	"examples",
-	"test",
-	"tests",
-]);
-
 const STRIP_FILE_PATTERNS = [
 	/\.map$/i,
 	/\.d\.cts$/i,
 	/\.d\.ts$/i,
-	/^README(\..+)?$/i,
-	/^CHANGELOG(\..+)?$/i,
+	/^README(\..+)?\.md$/i,
+	/^CHANGELOG(\..+)?\.md$/i,
 ];
 
 function safeStat(path) {
@@ -47,11 +34,6 @@ function walkAndPrune(dir) {
 		const isFile = entry.isFile() || stats?.isFile();
 
 		if (isDirectory) {
-			if (STRIP_DIR_NAMES.has(entry.name)) {
-				removePath(path);
-				continue;
-			}
-
 			walkAndPrune(path);
 			continue;
 		}
@@ -127,6 +109,14 @@ function prunePiCodingAgent(nodeModulesRoot) {
 	removePath(join(pkgRoot, "examples"));
 }
 
+function pruneMermaid(nodeModulesRoot) {
+	const pkgRoot = join(nodeModulesRoot, "mermaid", "dist");
+	if (!existsSync(pkgRoot)) return;
+	removePath(join(pkgRoot, "docs"));
+	removePath(join(pkgRoot, "tests"));
+	removePath(join(pkgRoot, "__mocks__"));
+}
+
 if (!existsSync(nodeModulesDir)) {
 	process.exit(0);
 }
@@ -136,5 +126,6 @@ pruneKoffi(nodeModulesDir);
 pruneBetterSqlite3(nodeModulesDir);
 pruneLiteparse(nodeModulesDir);
 prunePiCodingAgent(nodeModulesDir);
+pruneMermaid(nodeModulesDir);
 
 console.log(`[feynman] pruned runtime deps in ${basename(root)}`);
