@@ -64,12 +64,12 @@ const installCommands = [
       </div>
 
       <div class="flex w-full max-w-3xl flex-col items-center gap-4">
-        <div class="flex w-full flex-col">
-          <div class="flex self-start">
+        <div class="flex w-full max-w-full flex-col">
+          <div class="flex max-w-full self-start overflow-x-auto">
             {installCommands.map((entry, i) => (
               <button
                 class:list={[
-                  "install-toggle px-4 py-2 text-sm font-medium transition-colors cursor-pointer",
+                  "install-toggle shrink-0 px-4 py-2 text-sm font-medium transition-colors cursor-pointer",
                   i === 0 ? "rounded-tl-lg" : "",
                   i === installCommands.length - 1 ? "rounded-tr-lg" : "",
                   entry.label === installCommands[0].label
@@ -85,17 +85,17 @@ const installCommands = [
           </div>
           <button
             id="install-cmd"
-            class="group flex w-full items-center justify-between gap-3 rounded-b-lg rounded-tr-lg bg-muted px-4 py-3 text-left font-mono text-sm transition-colors hover:bg-muted/80 cursor-pointer"
+            class="group flex w-full min-w-0 max-w-full items-start justify-between gap-3 rounded-b-lg rounded-tr-lg bg-muted px-4 py-3 text-left font-mono text-xs transition-colors hover:bg-muted/80 cursor-pointer sm:items-center sm:text-sm"
             data-command={installCommands[0].command}
             aria-label="Copy install command"
           >
-            <span id="install-command" class="min-w-0 truncate">{installCommands[0].command}</span>
-            <svg id="install-copy" class="size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <svg id="install-check" class="hidden size-4 shrink-0 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            <span id="install-command" class="flex-1 min-w-0 break-all whitespace-normal leading-relaxed sm:overflow-hidden sm:text-ellipsis sm:whitespace-nowrap">{installCommands[0].command}</span>
+            <svg id="install-copy" class="mt-0.5 size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground sm:mt-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <svg id="install-check" class="mt-0.5 hidden size-4 shrink-0 text-primary sm:mt-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
           </button>
         </div>
 
-        <div class="flex items-center gap-3">
+        <div class="flex flex-wrap items-center justify-center gap-3">
           <a href="/docs/getting-started/installation">
             <Button client:load size="lg">Get Started</Button>
           </a>
@@ -221,7 +221,7 @@ const installCommands = [
       <p class="text-muted-foreground">
         Built on <a href="https://github.com/badlogic/pi-mono" class="text-primary hover:underline">Pi</a> and <a href="https://www.alphaxiv.org/" class="text-primary hover:underline">alphaXiv</a>. Capabilities ship as Pi skills and every output stays source-grounded.
       </p>
-      <div class="flex items-center gap-3">
+      <div class="flex flex-wrap items-center justify-center gap-3">
         <a href="/docs/getting-started/installation">
           <Button client:load size="lg">Get Started</Button>
         </a>
