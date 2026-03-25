@@ -15,17 +15,7 @@
 
 ```bash
 curl -fsSL https://feynman.is/install | bash
-
-# stable release channel
-curl -fsSL https://feynman.is/install | bash -s -- stable
-
-# package manager fallback
-pnpm add -g @companion-ai/feynman
-
-bun add -g @companion-ai/feynman
 ```
-
-The one-line installer tracks the latest `main` build. Use `stable` or an exact version to pin a release. Then run `feynman setup` to configure your model and get started.
 
 ---
 
@@ -45,7 +35,7 @@ $ feynman audit 2401.12345
 → Compares paper claims against the public codebase
 
 $ feynman replicate "chain-of-thought improves math"
-→ Asks where to run, then builds a replication plan
+→ Replicates experiments on local or cloud GPUs
 ```
 
 ---
@@ -60,7 +50,7 @@ Ask naturally or use slash commands as shortcuts.
 | `/lit <topic>` | Literature review from paper search and primary sources |
 | `/review <artifact>` | Simulated peer review with severity and revision plan |
 | `/audit <item>` | Paper vs. codebase mismatch audit |
-| `/replicate <paper>` | Replication plan with environment selection |
+| `/replicate <paper>` | Replicate experiments on local or cloud GPUs |
 | `/compare <topic>` | Source comparison matrix |
 | `/draft <topic>` | Paper-style draft from research findings |
 | `/autoresearch <idea>` | Autonomous experiment loop |
